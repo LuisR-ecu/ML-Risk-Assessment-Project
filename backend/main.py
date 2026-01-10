@@ -141,3 +141,7 @@ async def predict_churn(customer_id: str):
         "risk_factors": [{"feature": f, "impact": round(i, 2)} for f, i in top_drivers]
     }
     
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

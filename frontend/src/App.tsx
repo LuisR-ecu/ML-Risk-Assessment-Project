@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import type { ReactNode } from 'react';
 import { Users, AlertTriangle, TrendingDown, BarChart3 } from 'lucide-react'; // Install lucide-react for icons
 import { ChurnSimulator } from './components/ChurnSimulator';
 import { 
@@ -12,8 +13,14 @@ const chartData = [
   { name: 'Two Year', rate: 3, color: '#10b981' },
 ];
 
+type CustomerSummary = {
+  id: string;
+  probability: number;
+  contract: string;
+};
+
 const App = () => {
-  const [selectedCustomer] = useState({
+  const [selectedCustomer] = useState<CustomerSummary>({
     id: "7010-BRMAI",
     probability: 0.72,
     contract: "Month-to-month"
@@ -102,7 +109,14 @@ const App = () => {
 };
 
 // Helper Component for Stats
-const StatCard = ({ title, value, icon, trend }) => (
+type StatCardProps = {
+  title: string;
+  value: string;
+  icon: ReactNode;
+  trend: string;
+};
+
+const StatCard = ({ title, value, icon, trend }: StatCardProps) => (
   <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 transition-colors cursor-default">
     <div className="flex justify-between items-start mb-4">
       <div className="p-2 bg-slate-50 rounded-lg">{icon}</div>

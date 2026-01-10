@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-export const ChurnSimulator = ({ initialData }) => {
-  const [contract, setContract] = useState(initialData.contract);
-  const [prob, setProb] = useState(initialData.probability);
+type ContractType = 'Month-to-month' | 'One year' | 'Two year';
+
+type InitialData = {
+  id: string;
+  probability: number;
+  contract: ContractType;
+};
+
+type ChurnSimulatorProps = {
+  initialData: InitialData;
+};
+
+export const ChurnSimulator = ({ initialData }: ChurnSimulatorProps) => {
+  const [contract, setContract] = useState<ContractType>(initialData.contract);
+  const [prob, setProb] = useState<number>(initialData.probability);
 
   // Simulate real-time interaction [cite: 64]
-  const handleContractChange = (newVal) => {
+  const handleContractChange = (newVal: ContractType) => {
     setContract(newVal);
     // In a real app, you'd call your FastAPI endpoint here [cite: 65]
     const simulatedImpact = newVal === 'Two year' ? -0.3 : 0.2; 
