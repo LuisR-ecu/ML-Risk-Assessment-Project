@@ -16,12 +16,18 @@ app = FastAPI(title="SAS Solutions Factory Demo API")
 
 # FIX 1: Open CORS for your entire network
 # This allows your MacBook/Phone to talk to the OptiPlex node
+origins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+  "https://churn.luis-demo.com",
+]
+
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # Open for demo/lab accessibility
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+  CORSMiddleware,
+  allow_origins=origins,
+  allow_credentials=True,
+  allow_methods=["*"],
+  allow_headers=["*"],
 )
 
 # --- Demo dataset ---
