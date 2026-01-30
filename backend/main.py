@@ -14,8 +14,7 @@ from sklearn.pipeline import Pipeline
 
 app = FastAPI(title="SAS Solutions Factory Demo API")
 
-# FIX 1: Open CORS for your entire network
-# This allows your MacBook/Phone to talk to the OptiPlex node
+# CORS is fully open for demo/lab accessibility
 origins = [
   "http://localhost:3000",
   "http://127.0.0.1:3000",
@@ -199,7 +198,6 @@ def export_high_risk(threshold: float = 0.7):
     )
 
 
-# FIX 2: Corrected logic for the specific customer lookup
 @app.get("/predict/{customer_id}")
 async def predict_by_id(customer_id: str):
     customer = df[df["customer_id"] == customer_id]
@@ -219,7 +217,6 @@ async def predict_by_id(customer_id: str):
         "risk_factors": risk_factors
     }
 
-# This powers your "What-If" simulator on the frontend
 @app.post("/predict")
 def predict_custom(req: PredictRequest):
     x_df = pd.DataFrame([req.model_dump()])
